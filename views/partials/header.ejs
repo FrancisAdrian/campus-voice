@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= typeof title !== 'undefined' ? title + ' · ' : '' %>Campus Voice</title>
+<script>
+  (function(){var t;try{t=localStorage.getItem('theme')}catch(e){}
+  if(!t)t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav aria-label="Main">
+  <a class="brand" href="/">Campus Voice</a>
+  <a href="/submit">Send feedback</a>
+  <a href="/track">Track a submission</a>
+  <% if (user) { %>
+    <% if (user.role === 'admin') { %><a href="/admin/dashboard">Dashboard</a><a href="/admin/users">Users</a><a href="/reports">Reports</a><% } %>
+    <% if (user.role === 'guidance') { %><a href="/guidance/dashboard">Guidance</a><a href="/reports">Reports</a><% } %>
+    <% if (user.role === 'student' || user.role === 'teacher') { %><a href="/student/dashboard">My submissions</a><% } %>
+    <span class="hint"><%= user.name %> (<%= user.role %>)</span>
+    <form method="post" action="/logout"><button class="link" type="submit">Log out</button></form>
+  <% } else { %>
+    <a href="/login">Log in</a>
+  <% } %>
+  <button id="theme-toggle" class="link" type="button">☾ Dark</button>
+</nav>
+<main>
