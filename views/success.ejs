@@ -1,0 +1,8 @@
+<%- include('partials/header', {title:'Sent'}) %>
+<h1>Thank you, we received it.</h1>
+<div class="card">
+  <p>Save this tracking code. It is the only way to check your status if you sent this anonymously.</p>
+  <p><span class="code"><%= code %></span></p>
+  <p><a class="btn" href="/track?code=<%= code %>">Check status</a> <a class="btn secondary" href="/submit">Send another</a></p>
+</div>
+<%- include('partials/footer') %>

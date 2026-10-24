@@ -1,0 +1,17 @@
+<%- include('partials/header', {title:'Track'}) %>
+<h1>Track a submission</h1>
+<form class="card" method="get" action="/track" style="max-width:480px">
+  <label for="code">Tracking code</label>
+  <input id="code" name="code" value="<%= code %>" placeholder="CV-1A2B3C4D" required>
+  <p><button class="btn" type="submit">Check status</button></p>
+</form>
+<% if (searched && !item) { %><div class="error" role="alert" style="margin-top:1rem">Code not found. Check for typos and try again.</div><% } %>
+<% if (item) { %>
+<div class="card" style="margin-top:1rem">
+  <h2 style="margin-top:0"><%= item.subject %></h2>
+  <p><span class="badge s-<%= item.status %>"><%= item.status %></span> <span class="hint"><%= item.category %> · sent <%= item.created_at.slice(0,10) %></span></p>
+  <% if (item.response) { %><h2>Reply from the school</h2><div class="reply"><%= item.response %></div>
+  <% } else { %><p class="hint">No reply yet. Check back soon.</p><% } %>
+</div>
+<% } %>
+<%- include('partials/footer') %>

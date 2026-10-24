@@ -1,0 +1,24 @@
+<%- include('partials/header', {title:'Send feedback'}) %>
+<h1>Send feedback or a suggestion</h1>
+<form class="card" method="post" action="/submit" data-validate novalidate>
+  <div class="error client-error" hidden>Please fill in all required fields.</div>
+  <% if (errors.length) { %><div class="error" role="alert"><% errors.forEach(function(e){ %><div><%= e %></div><% }) %></div><% } %>
+  <div class="row">
+    <div><label for="type">This is a</label>
+      <select id="type" name="type"><% TYPES.forEach(function(t){ %><option <%= v.type===t?'selected':'' %>><%= t %></option><% }) %></select></div>
+    <div><label for="category">Category *</label>
+      <select id="category" name="category" required><option value="">Choose…</option>
+      <% CATEGORIES.forEach(function(c){ %><option <%= v.category===c?'selected':'' %>><%= c %></option><% }) %></select></div>
+    <div><label for="urgency">Urgency</label>
+      <select id="urgency" name="urgency"><% URGENCY.forEach(function(u){ %><option <%= (v.urgency||'Low')===u?'selected':'' %>><%= u %></option><% }) %></select></div>
+  </div>
+  <label for="subject">Subject *</label>
+  <input id="subject" name="subject" maxlength="100" value="<%= v.subject || '' %>" required>
+  <label for="message">Message *</label>
+  <textarea id="message" name="message" maxlength="2000" data-counter="msg-count" required><%= v.message || '' %></textarea>
+  <div class="hint" id="msg-count" aria-live="polite"></div>
+  <label class="check"><input type="checkbox" name="anonymous" <%= v.anonymous?'checked':'' %>> Submit anonymously (your name is not saved with this)</label>
+  <p class="hint">Safety and well-being concerns go straight to the Guidance office.</p>
+  <p><button class="btn" type="submit">Send</button></p>
+</form>
+<%- include('partials/footer') %>
